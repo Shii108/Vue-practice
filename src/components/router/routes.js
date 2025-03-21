@@ -1,10 +1,18 @@
-import Electronics from "../Electronics.vue";
-import Fashion from "../Fashion.vue";
-import HomeFur from "../HomeFur.vue";
-import Sports from "../Sports.vue";
-import Beauty from "../Beauty.vue";
-import Groceries from "../Groceries.vue";
+import Layout from "../Layout.vue";
+import ProductDetail from "../ProductDetail.vue";
+import Products from "../Products.vue";
+import PageNotFound from "../PageNotFound.vue";
 
-const routes=[
-  {path: "/electronics",component: Electronics}
-]
+const routes = [
+  {
+    path: "/",
+    component: Layout,
+    children: [
+      { path: "/:category", component: Products},
+      { path: "/:category/:id", component: ProductDetail},
+    ],
+  },
+  { path: "/:pathMatch(.*)*", component : PageNotFound },
+];
+
+export { routes };
