@@ -11,6 +11,7 @@
           </div>
         </div>
       </div>
+      <div class="cart-div"><img src="./assets/cartw.svg" alt="cart icon" width="30px" height="59px"><span>{{ totalItem }}</span></div>
     </nav>
   </div>
   <router-view></router-view>
@@ -21,6 +22,8 @@ import { onMounted, provide, ref } from 'vue'
 import { useRouter } from 'vue-router';
 const router=useRouter()
 
+const totalItem=ref(0)
+provide('totalItem',totalItem)
 const test=(category)=>{
   router.push(`/${category.value}`)
 }
@@ -120,6 +123,7 @@ nav {
   margin-bottom: 20px;
   padding: 20px;
   position: relative;
+  height: 60px;
 }
 
 .relative {
@@ -141,9 +145,16 @@ nav {
   border: 1px black solid;
   padding: 2px;
 }
+.cart-div
+{
+  position: relative;
+  width: 40px;
+}
+.cart-div span{
+  position: absolute;
+  font-size: 2rem;
+  top: -5px;
+  right: 0;
 
-.router-link-active {
-  color: red;
-  text-decoration: underline;
 }
 </style>

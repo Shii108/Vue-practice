@@ -11,13 +11,13 @@
         <span>{{ Quantity }}</span>
         <button @click="Quantity++">+</button>
       </div>
-      <button class="add-to-cart">Add to Cart</button>
+      <button class="add-to-cart" @click="pushToCart(Quantity,route.params.id)">Add to Cart</button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, inject, ref, watch } from "vue";
+import { computed, inject, ref } from "vue";
 import { useRoute } from "vue-router";
 
 let Quantity = ref(1)
@@ -25,6 +25,7 @@ let Quantity = ref(1)
 const route = useRoute();
 
 const products = inject("products");
+
 
 const selectedId = Number(route.params.id)
 
@@ -35,6 +36,10 @@ const product = computed(() => {
   return products.value?.find((p) => p.id === selectedId) || null;
 });
 
+const pushToCart=(quantity,id)=>{
+  console.log(quantity);
+  console.log(id);
+}
 </script>
 
 <style scoped>
