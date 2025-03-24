@@ -6,7 +6,7 @@
         <div class="relative">
           <div v-if="dropdownMenu === category.id" class="dropdown" @mouseleave="dropdownMenu = null">
             <div v-for="item in category.subcategories" :key="item.id" class="list" @click="test(item)">
-              {{ item }}
+              {{ item.label }}
             </div>
           </div>
         </div>
@@ -22,16 +22,69 @@ import { useRouter } from 'vue-router';
 const router=useRouter()
 
 const test=(category)=>{
-  router.push(`/${category}`)
+  router.push(`/${category.value}`)
 }
+
 const categories = ref([
-{ id: 0, name: "Beauty", subcategories: ["beauty", "skin-care", "fragrances"] },
-{ id: 1, name: "Electronics", subcategories: ["laptops", "smartphones", "tablets", "mobile-accessories"] },
-{ id: 2, name: "Men's Fashion", subcategories: ["mens-shirts", "mens-shoes", "mens-watches"] },
-{ id: 3, name: "Women's Fashion", subcategories: ["womens-dresses", "tops", "womens-shoes", "womens-watches", "womens-jewellery", "womens-bags"] },
-{ id: 4, name: "Home & Living", subcategories: ["home-decoration", "furniture", "kitchen-accessories"] },
-{ id: 5, name: "Sports", subcategories: ["sports-accessories", "sunglasses"] }
+  {
+    id: 0,
+    name: "Beauty",
+    subcategories: [
+      { label: "Beauty", value: "beauty" },
+      { label: "Skin Care", value: "skin-care" },
+      { label: "Fragrances", value: "fragrances" }
+    ]
+  },
+  {
+    id: 1,
+    name: "Electronics",
+    subcategories: [
+      { label: "Laptops", value: "laptops" },
+      { label: "Smartphones", value: "smartphones" },
+      { label: "Tablets", value: "tablets" },
+      { label: "Mobile Accessories", value: "mobile-accessories" }
+    ]
+  },
+  {
+    id: 2,
+    name: "Men's Fashion",
+    subcategories: [
+      { label: "Shirts", value: "mens-shirts" },
+      { label: "Shoes", value: "mens-shoes" },
+      { label: "Watches", value: "mens-watches" }
+    ]
+  },
+  {
+    id: 3,
+    name: "Women's Fashion",
+    subcategories: [
+      { label: "Dresses", value: "womens-dresses" },
+      { label: "Tops", value: "tops" },
+      { label: "Shoes", value: "womens-shoes" },
+      { label: "Watches", value: "womens-watches" },
+      { label: "Jewellery", value: "womens-jewellery" },
+      { label: "Bags", value: "womens-bags" }
+    ]
+  },
+  {
+    id: 4,
+    name: "Home & Living",
+    subcategories: [
+      { label: "Decoration", value: "home-decoration" },
+      { label: "Furniture", value: "furniture" },
+      { label: "Kitchen Accessories", value: "kitchen-accessories" }
+    ]
+  },
+  {
+    id: 5,
+    name: "Sports",
+    subcategories: [
+      { label: "Accessories", value: "sports-accessories" },
+      { label: "Sunglasses", value: "sunglasses" }
+    ]
+  }
 ]);
+
 
 const dropdownMenu = ref(null)
 

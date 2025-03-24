@@ -10,9 +10,8 @@ const routes = [
     children: [
       { path: "/:category", component: Products},
       { path: "/:category/:id", component: ProductDetail},
+      { path: "/:pathMatch(.*)*", component : PageNotFound },
     ],
   },
-  { path: "/:pathMatch(.*)*", component : PageNotFound },
 ];
-
 export { routes };
