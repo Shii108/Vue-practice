@@ -1,7 +1,7 @@
 import Layout from "../Layout.vue";
 import ProductDetail from "../ProductDetail.vue";
 import Products from "../Products.vue";
-import PageNotFound from "../PageNotFound.vue";
+import cart from "../cart.vue";
 
 const routes = [
   {
@@ -10,7 +10,7 @@ const routes = [
     children: [
       { path: "/:category", component: Products },
       { path: "/:category/:id", component: ProductDetail },
-      { path: "/:pathMatch(.*)*", component: PageNotFound },
+      { path: "/cart", component: cart },
     ],
   },
 ];

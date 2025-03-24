@@ -1,45 +1,59 @@
 <template>
   <div v-if="product" class="product-container">
     <img :src="product.thumbnail" :alt="product.title" class="product-image" />
+
     <div class="details">
       <h2>{{ product.title }}</h2>
       <p>{{ product.description }}</p>
       <p class="price">Price: ${{ product.price }}</p>
+
       <div class="quantity">
         Quantity
-        <button @click="Quantity--" :disabled="Quantity <= 1">-</button>
-        <span>{{ Quantity }}</span>
-        <button @click="Quantity++">+</button>
+        <button @click="quantity--" :disabled="quantity <= 1">-</button>
+        <span>{{ quantity }}</span>
+        <button @click="quantity++">+</button>
       </div>
-      <button class="add-to-cart" @click="pushToCart(Quantity,route.params.id)">Add to Cart</button>
+
+      <button class="add-to-cart" @click="addToCart">
+        Add to Cart
+      </button>
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed, inject, ref } from "vue";
+import { computed, inject, ref, watch } from "vue";
 import { useRoute } from "vue-router";
+import { useCartStore } from "./store/cartStore";
 
-let Quantity = ref(1)
-
+// Store & Route
+const cartStore = useCartStore();
 const route = useRoute();
 
+// Reactive Variables
+const quantity = ref(1);
 const products = inject("products");
 
-
-const selectedId = Number(route.params.id)
-
-console.log(selectedId);
-
+// Computed Property: Find the product by ID
 const product = computed(() => {
   const selectedId = Number(route.params.id);
   return products.value?.find((p) => p.id === selectedId) || null;
 });
 
-const pushToCart=(quantity,id)=>{
-  console.log(quantity);
-  console.log(id);
-}
+// Function to Add Product to Cart
+const addToCart = () => {
+  cartStore.addToCart(quantity.value, route.params.id);
+  console.log(`Added ${quantity.value} of product ID ${route.params.id} to cart`);
+};
+
+// Watcher: Log changes in cart items
+watch(
+  () => cartStore.itemIds,
+  (newValue) => {
+    console.log("Cart Updated - New item IDs:", newValue);
+  },
+  { deep: true }
+);
 </script>
 
 <style scoped>
@@ -78,21 +92,35 @@ const pushToCart=(quantity,id)=>{
   padding: 5px;
   margin-top: 10px;
   background-color: #F57224;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  border-radius: 5px;
+  transition: background 0.2s;
 }
+
+.add-to-cart:hover {
+  background-color: #d45b1b;
+}
+
 button:disabled {
   cursor: not-allowed;
-  opacity: 0.5; 
+  opacity: 0.5;
 }
+
+.quantity {
+  margin-top: 10px;
+}
+
 .quantity span {
-  display: inline-block; 
-  width: 30px; 
+  display: inline-block;
+  width: 30px;
   text-align: center;
   background: black;
   color: white;
   padding: 2px 5px;
   border-radius: 4px;
-  margin-left: 4px;
-  margin-right: 4px;
+  margin: 0 4px;
 }
 
 .quantity button {
@@ -104,8 +132,11 @@ button:disabled {
   font-size: 18px;
   font-weight: bold;
   border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
-
-
+.quantity button:hover {
+  background: #555;
+}
 </style>

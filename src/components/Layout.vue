@@ -1,33 +1,42 @@
 <template>
   <div class="category">
-    <nav>
+    <nav @mouseleave="dropdownMenu = null">
       <div v-for="category in categories" :key="category.id" @mouseenter="dropdownMenu = category.id">
         {{ category.name }}
         <div class="relative">
           <div v-if="dropdownMenu === category.id" class="dropdown" @mouseleave="dropdownMenu = null">
-            <div v-for="item in category.subcategories" :key="item.id" class="list" @click="test(item)">
+            <div v-for="item in category.subcategories" :key="item.id" class="list" @click="navigateToCategory(item)">
               {{ item.label }}
             </div>
           </div>
         </div>
       </div>
-      <div class="cart-div"><img src="./assets/cartw.svg" alt="cart icon" width="30px" height="59px"><span>{{ totalItem }}</span></div>
+
+      <div class="cart-div" @click="goToCart">
+        <img src="./assets/cartw.svg" alt="cart icon" width="30px" height="59px" />
+        <span>{{ cartStore.totalItem }}</span>
+      </div>
     </nav>
   </div>
   <router-view></router-view>
 </template>
 
 <script setup>
-import { onMounted, provide, ref } from 'vue'
-import { useRouter } from 'vue-router';
-const router=useRouter()
+import { ref, onMounted, provide } from "vue";
+import { useRouter } from "vue-router";
+import { useCartStore } from "./store/cartStore";
 
-const totalItem=ref(0)
-provide('totalItem',totalItem)
-const test=(category)=>{
-  router.push(`/${category.value}`)
-}
+// Router & Store
+const router = useRouter();
+const cartStore = useCartStore();
 
+// Reactive Variables
+const dropdownMenu = ref(null);
+const products = ref([]);
+const totalItem = ref(0);
+provide("products", products);
+
+// Categories Data
 const categories = ref([
   {
     id: 0,
@@ -88,24 +97,28 @@ const categories = ref([
   }
 ]);
 
-
-const dropdownMenu = ref(null)
-
-const products = ref([])
-
+// Functions
 const fetchProducts = async () => {
   try {
-    const response = await fetch('https://dummyjson.com/products?limit=200')
-    if (!response.ok) throw new Error('Failed to fetch')
-    const result = await response.json()
-    products.value = result.products
+    const response = await fetch("https://dummyjson.com/products?limit=200");
+    if (!response.ok) throw new Error("Failed to fetch");
+    const result = await response.json();
+    products.value = result.products;
   } catch (error) {
-    console.error(error)
+    console.error(error);
   }
-}
-onMounted(() => fetchProducts())
-provide('products',products)
+};
 
+const navigateToCategory = (category) => {
+  router.push(`/${category.value}`);
+};
+
+const goToCart = () => {
+  router.push("/cart");
+};
+
+// Lifecycle Hook
+onMounted(fetchProducts);
 </script>
 
 <style scoped>
@@ -137,24 +150,26 @@ nav {
   background: white;
   padding: 10px;
   min-width: 150px;
-  white-space: nowrap; 
+  white-space: nowrap;
   color: black;
 }
 
 .list {
   border: 1px black solid;
   padding: 2px;
+  cursor: pointer;
 }
-.cart-div
-{
+
+.cart-div {
   position: relative;
   width: 40px;
+  cursor: pointer;
 }
-.cart-div span{
+
+.cart-div span {
   position: absolute;
   font-size: 2rem;
   top: -5px;
   right: 0;
-
 }
 </style>
