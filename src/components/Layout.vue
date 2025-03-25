@@ -33,7 +33,6 @@ const cartStore = useCartStore();
 // Reactive Variables
 const dropdownMenu = ref(null);
 const products = ref([]);
-const totalItem = ref(0);
 provide("products", products);
 
 // Categories Data
@@ -128,6 +127,7 @@ onMounted(fetchProducts);
 }
 
 nav {
+  cursor: pointer;
   background-color: #232F3E;
   color: white;
   font-size: 2rem;

@@ -14,7 +14,7 @@
         <button @click="quantity++">+</button>
       </div>
 
-      <button class="add-to-cart" @click="addToCart(product.title, product.thumbnail , product.price)">
+      <button class="add-to-cart" @click="addToCart(product.title, product.thumbnail, product.price)">
         Add to Cart
       </button>
     </div>
@@ -41,9 +41,9 @@ const product = computed(() => {
 });
 
 // Function to Add Product to Cart
-const addToCart = (title, thumbnail,price) => {
-  cartStore.addToCart(quantity.value, route.params.id, title, thumbnail , price);
-  cartStore.updateQuantity(quantity.value);
+const addToCart = (title, thumbnail, price) => {
+  cartStore.addToCart(quantity.value, route.params.id, title, thumbnail, price);
+  cartStore.totalQuantity();
 };
 </script>
 
@@ -83,11 +83,8 @@ const addToCart = (title, thumbnail,price) => {
   padding: 5px;
   margin-top: 10px;
   background-color: #F57224;
-  border: none;
   cursor: pointer;
-  font-size: 1.2rem;
-  border-radius: 5px;
-  transition: background 0.2s;
+  font-size: 1.5rem;
 }
 
 .add-to-cart:hover {
@@ -124,7 +121,6 @@ button:disabled {
   font-weight: bold;
   border-radius: 5px;
   cursor: pointer;
-  transition: background 0.2s;
 }
 
 .quantity button:hover {
