@@ -2,8 +2,8 @@
   <div v-if="cartProducts.length > 0" class="cart-container">
     <div v-for="item in cartProducts" :key="item.id">
       <div class="items">
-        <input type="checkbox" v-model="item.checked" />
-        <img :src="item.image" :alt="item.title" class="product-img" />
+        <input type="checkbox" v-model="item.checked" @click="cartStore.updateChecked(item.id)"/>
+        <img :src="item.image" :alt="item.title" class="product-img"/>
         <h3>{{ item.title }}</h3>
         <div class="price-del">
           <p>Price: ${{ item.price }}</p>
@@ -24,7 +24,7 @@ import { ref } from 'vue';
 import { useCartStore } from './store/cartStore';
 
 const cartStore = useCartStore();
-const cartProducts = ref(cartStore.itemIds)
+const cartProducts = ref(cartStore.item_details)
 
 const deleteItem = (item) => {
   cartStore.removeItem(item.id)
