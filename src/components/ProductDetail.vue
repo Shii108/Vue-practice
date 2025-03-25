@@ -14,7 +14,7 @@
         <button @click="quantity++">+</button>
       </div>
 
-      <button class="add-to-cart" @click="addToCart">
+      <button class="add-to-cart" @click="addToCart(product.title, product.thumbnail , product.price)">
         Add to Cart
       </button>
     </div>
@@ -22,7 +22,7 @@
 </template>
 
 <script setup>
-import { computed, inject, ref, watch } from "vue";
+import { computed, inject, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useCartStore } from "./store/cartStore";
 
@@ -41,19 +41,10 @@ const product = computed(() => {
 });
 
 // Function to Add Product to Cart
-const addToCart = () => {
-  cartStore.addToCart(quantity.value, route.params.id);
-  console.log(`Added ${quantity.value} of product ID ${route.params.id} to cart`);
+const addToCart = (title, thumbnail,price) => {
+  cartStore.addToCart(quantity.value, route.params.id, title, thumbnail , price);
+  cartStore.updateQuantity(quantity.value);
 };
-
-// Watcher: Log changes in cart items
-watch(
-  () => cartStore.itemIds,
-  (newValue) => {
-    console.log("Cart Updated - New item IDs:", newValue);
-  },
-  { deep: true }
-);
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 import Layout from "../Layout.vue";
 import ProductDetail from "../ProductDetail.vue";
 import Products from "../Products.vue";
-import cart from "../cart.vue";
+import Cart from "../cart.vue";
 
 const routes = [
   {
@@ -10,7 +10,7 @@ const routes = [
     children: [
       { path: "/:category", component: Products },
       { path: "/:category/:id", component: ProductDetail },
-      { path: "/cart", component: cart },
+      { path: "/cart", component: Cart },
     ],
   },
 ];
