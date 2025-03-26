@@ -2,24 +2,27 @@
   <div v-if="cartProducts.length > 0" class="cart-container">
     <div v-for="item in cartProducts" :key="item.id">
       <div class="items">
-        <input type="checkbox" v-model="item.checked" @click="cartStore.updateChecked(item.id)"/>
-        <img :src="item.image" :alt="item.title" class="product-img"/>
+        <input type="checkbox" v-model="item.checked" @click="cartStore.updateChecked(item.id)" />
+        <img :src="item.image" :alt="item.title" class="product-img" />
         <h3>{{ item.title }}</h3>
         <div class="price-del">
           <p>Price: ${{ item.price }}</p>
           <img src="./assets/delete.svg" alt="deleteicon" @click="deleteItem(item)" />
         </div>
         <div class="quantity">
-          <button @click="updatePositive(item,item.quantity,'sub')" :disabled="item.quantity===1" class="decrease-btn">-</button>
+          <button @click="updatePositive(item, item.quantity, 'sub')" :disabled="item.quantity === 1"
+            class="decrease-btn">-</button>
           <p>Quantity: {{ item.quantity }}</p>
-          <button @click="updatePositive(item,item.quantity,'add')">+</button>
+          <button @click="updatePositive(item, item.quantity, 'add')">+</button>
         </div>
       </div>
     </div>
   </div>
+  <OrderSummary />
 </template>
 
 <script setup>
+import OrderSummary from './OrderSummary.vue';
 import { ref } from 'vue';
 import { useCartStore } from './store/cartStore';
 
@@ -31,9 +34,9 @@ const deleteItem = (item) => {
   cartStore.totalQuantity();
 }
 
-const updatePositive = (item,quantity,action)=>{
-  cartStore.updateQuantity(item.id,action === "add" ? quantity+1 : quantity-1)
-  cartStore.totalQuantity();   
+const updatePositive = (item, quantity, action) => {
+  cartStore.updateQuantity(item.id, action === "add" ? quantity + 1 : quantity - 1)
+  cartStore.totalQuantity();
 }
 
 </script>
@@ -85,13 +88,16 @@ const updatePositive = (item,quantity,action)=>{
   display: flex;
   flex-grow: 1;
 }
-.quantity p{
+
+.quantity p {
   border: solid 1px black;
   padding: 0 40px;
   width: 200px;
 }
-.quantity button{
-  border: solid 1px black;;
+
+.quantity button {
+  border: solid 1px black;
+  ;
   width: 30px;
   height: 25px;
 }
