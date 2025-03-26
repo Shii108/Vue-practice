@@ -16,6 +16,7 @@
     </div>
     <button class="checkout">Procced to Checkout ({{ cartStore.total_buying_item }})</button>
   </div>
+  <p>okey</p>
 </template>
 
 <script setup>
