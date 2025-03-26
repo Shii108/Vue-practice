@@ -12,7 +12,9 @@ export const useCartStore = defineStore("cart", () => {
 
   // Function: Add item to cart
   const addToCart = (quantity, id, title, image, price) => {
-    const itemIndex = item_details.value.findIndex((item) => item?.id === Number(id));
+    const itemIndex = item_details.value.findIndex(
+      (item) => item?.id === Number(id)
+    );
 
     if (itemIndex !== -1) {
       // If item already exists, increase quantity
@@ -73,7 +75,8 @@ export const useCartStore = defineStore("cart", () => {
   // Function: Toggle checked status of an item
   const updateChecked = (id) => {
     const itemIndex = item_details.value.findIndex((item) => item.id === id);
-    item_details.value[itemIndex].checked = !item_details.value[itemIndex].checked;
+    item_details.value[itemIndex].checked =
+      !item_details.value[itemIndex].checked;
     costCalculation();
   };
 
