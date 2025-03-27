@@ -18,7 +18,8 @@ html {
 }
 
 body {
-  font-family: "Poppins", sans-serif;;
+  font-family: "DM Sans", sans-serif;
+  font-optical-sizing: auto;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -128,3 +129,33 @@ svg {
 .product-img {
   height: 275px;
 }
+
+.close-btn {
+  width: 40px;
+  height: 40px;
+  /* border-radius: 50%; */
+  background-color: rgba(255, 255, 255, 0.68);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-btn::before,
+.close-btn::after {
+  content: '';
+  position: absolute;
+  width: 24px;
+  height: 2px;
+  background-color: #090909;
+  border-radius: 2px;
+}
+
+.close-btn::before {
+  transform: rotate(45deg);
+}
+
+.close-btn::after {
+  transform: rotate(-45deg);
+}
+

@@ -12,16 +12,19 @@
         </div>
       </div>
       <div class="cart-div" @click="showCart = true">
-        <img src="/assets/cartw.svg" alt="cart icon" width="30px" height="59px" />
-        <span>{{ cartStore.totalItem }}</span>
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+          <path
+            d="M5 14h13.14c1.01 0 1.52 0 1.92-.19.36-.17.66-.44.87-.78.23-.38.29-.88.41-1.89l.59-5.26c.03-.3.05-.45-.04-.61-.08-.1-.15-.18-.26-.23C21.57 5 21.42 5 21.1 5H4.5M2 2h1.25c.26 0 .4 0 .5.05.1.05.17.12.22.2.06.1.07.23.08.5l.91 14.5c.02.26.03.39.09.49.05.09.12.16.21.2.1.05.24.05.49.05H19M7.5 21.5h.01M16.5 21.5h.01M8 21.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm9 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"
+            stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <div>{{ cartStore.totalItem }}</div>
       </div>
     </nav>
     <div v-if="showCart">
       <div class="cart-content">
         <div class="cart-upper">
           <p>Shopping Cart Preview</p>
-          <button @click="goToCart()">Buy Now</button>
-          <button @click="showCart = false">X</button>
+          <div class="close-btn" @click="showCart = false"></div>
         </div>
         <div v-for="item in cartStore.item_details" :key="item.id" class="cart-item">
           <div class="img-checkbox">
@@ -155,7 +158,6 @@ const updatePositive = (item, quantity, action) => {
   cartStore.totalQuantity();
 }
 
-
 // Lifecycle Hook
 onMounted(fetchProducts);
 </script>
@@ -172,6 +174,7 @@ nav {
   color: white;
   font-size: 2rem;
   display: flex;
+  align-items: center;
   gap: 20px;
   margin-bottom: 20px;
   padding: 20px;
@@ -186,42 +189,36 @@ nav {
 .dropdown {
   position: absolute;
   margin-top: 20px;
-  border: solid 1px black;
   background: white;
   padding: 10px;
   min-width: 150px;
   white-space: nowrap;
   color: black;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .list {
-  border: 1px black solid;
-  padding: 2px;
+  padding: 8px;
   cursor: pointer;
+}
+
+.list:hover {
+  background-color: #f0f0f0;
 }
 
 .cart-div {
   margin-left: auto;
-  position: relative;
-  width: 40px;
+  display: flex;
+  gap: 3px;
+  align-items: center;
   cursor: pointer;
 }
 
-.cart-div span {
-  position: absolute;
-  font-size: 2rem;
-  top: -5px;
-  right: 0;
-}
-
 .cart-content {
-  cursor: default;
-  background: #8D6E63;
-  color: #ECE7E5;
+  background-color: pink;
   min-height: 831px;
   width: 550px;
   position: absolute;
-  border: solid 1px black;
   top: 0px;
   right: 0px;
   z-index: 100;
@@ -229,86 +226,83 @@ nav {
 
 .cart-upper {
   border: solid 1px black;
+  width: 36%;
+  position: fixed;
+  color: #121926;
   padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.cart-upper button {
-  padding: 16px;
-  font-size: 1.6rem;
-  color: white;
-  border: solid 1px black;
-  cursor: pointer;
-}
-
-.cart-upper button:nth-of-type(1) {
-  background-color: #0660FE;
-}
-
 .cart-upper p {
   font-size: 2.4rem;
-  display: inline-block;
+  font-weight: 600;
+  word-spacing: -0.4px;
 }
 
 .cart-item {
   display: flex;
-  gap: 10px;
-  border-bottom: solid 1px black;
-  height: 200px;
+  align-items: center;
+  gap: 20px;
+  padding: 10px;
+}
+
+.cart-item img {
+  background: white;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
 }
 
 .img-checkbox {
-  border: solid 1px black;
   display: flex;
-  width: 220px;
-  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
 }
+
 .detailed-info {
-  border: solid 1px black;
   flex-grow: 1;
 }
 
 .cart-title {
-  font-size: 2rem;
-  border: solid 1px pink;
-  padding: 10px;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
 }
 
-.price{
+.price {
   font-size: 1.6rem;
   font-weight: bold;
-  border: solid 1px black;
-  padding: 5px;
-  margin-top: 10px;
-}
-.quantity-delete{
-  margin-top: 10px;
-  padding: 5px;
-  display: flex;
-  justify-content: space-between;
-  border: solid 1px black;
-}
-.quantity-delete img{
-  height: 30px;
+  margin-bottom: 10px;
 }
 
-.quantity{
-  font-size: 1.6rem;
-  border: solid 1px black;
+.quantity-delete {
   display: flex;
-  width: 160px;
+  justify-content: space-between;
   align-items: center;
-  justify-content: space-between;
-}
-.quantity button{
-  width: 20px;
-  border: solid 1px black;
 }
 
-.quantity p{
-  width: 140px;
-  border: solid 1px orange;
+.quantity-delete img {
+  height: 30px;
+  cursor: pointer;
+}
+
+.quantity {
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity button {
+  width: 30px;
+  height: 30px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+}
+
+.quantity p {
+  margin: 0;
 }
 </style>
