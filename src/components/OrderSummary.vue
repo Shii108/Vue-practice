@@ -14,25 +14,32 @@
       <p><strong>Total:</strong></p>
       <span><strong>{{ cartStore.totalCost }}</strong></span>
     </div>
-    <button class="checkout">Procced to Checkout ({{ cartStore.total_buying_item }})</button>
+    <button class="checkout" @click="paymentPage(cartStore.total_buying_item)">Procced to Checkout ({{ cartStore.total_buying_item }})</button>
   </div>
-  <p>okey</p>
 </template>
 
 <script setup>
 
-import { useCartStore } from '../store/cartStore';
+import { useCartStore } from './store/cartStore';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 const cartStore = useCartStore();
+
+const paymentPage=(item)=>{
+  if(item>0){
+    router.push('/payment')
+  }
+}
 
 </script>
 
 <style scoped>
 .order-summary {
   position: fixed;
-  right: 350px;
+  right: 320px;
   font-size: 2rem;
   border: solid 1px black;
-  width: 320px;
+  width: 350px;
   padding: 20px;
 }
 
@@ -49,6 +56,7 @@ const cartStore = useCartStore();
   background-color: #0660FE;
   padding: 10px;
   border-radius: 5px;
+  width: 300px;
 }
 
 .checkout:hover {

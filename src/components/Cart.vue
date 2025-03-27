@@ -1,24 +1,28 @@
 <template>
-  <div v-if="cartProducts.length > 0" class="cart-container">
-    <div v-for="item in cartProducts" :key="item.id">
-      <div class="items">
-        <input type="checkbox" v-model="item.checked" @click="cartStore.updateChecked(item.id)" />
-        <img :src="item.image" :alt="item.title" class="product-img" />
-        <h3>{{ item.title }}</h3>
-        <div class="price-del">
-          <p>Price: ${{ item.price }}</p>
-          <img src="./assets/delete.svg" alt="deleteicon" @click="deleteItem(item)" />
-        </div>
-        <div class="quantity">
-          <button @click="updatePositive(item, item.quantity, 'sub')" :disabled="item.quantity === 1"
-            class="decrease-btn">-</button>
-          <p>Quantity: {{ item.quantity }}</p>
-          <button @click="updatePositive(item, item.quantity, 'add')">+</button>
+  <div class="overall-page">
+    <div v-if="cartProducts.length > 0" class="cart-container">
+      <div v-for="item in cartProducts" :key="item.id">
+        <div class="items">
+          <input type="checkbox" v-model="item.checked" @click="cartStore.updateChecked(item.id)" />
+          <img :src="item.image" :alt="item.title" class="product-img" />
+          <h3>{{ item.title }}</h3>
+          <div class="price-del">
+            <p>Price: ${{ item.price }}</p>
+            <img src="/assets/delete.svg" alt="deleteicon" @click="deleteItem(item)" />
+          </div>
+          <div class="quantity">
+            <button @click="updatePositive(item, item.quantity, 'sub')" :disabled="item.quantity === 1"
+              class="decrease-btn">-</button>
+            <p>Quantity: {{ item.quantity }}</p>
+            <button @click="updatePositive(item, item.quantity, 'add')">+</button>
+          </div>
         </div>
       </div>
     </div>
+    <div class="summary-container">
+      <OrderSummary />
+    </div>
   </div>
-  <OrderSummary />
 </template>
 
 <script setup>
@@ -42,6 +46,13 @@ const updatePositive = (item, quantity, action) => {
 </script>
 
 <style scoped>
+
+.overall-page {
+  display: flex;
+}
+.summary-container {
+  padding: 20px;
+}
 .cart-container {
   padding: 20px;
   width: 850px;

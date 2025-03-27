@@ -80,7 +80,7 @@ const addToCart = (title, thumbnail, price) => {
 
 .add-to-cart {
   color: white;
-  padding: 5px;
+  padding: 13px;
   margin-top: 10px;
   background-color: #F57224;
   cursor: pointer;

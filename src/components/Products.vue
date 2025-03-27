@@ -13,7 +13,7 @@
     </div>
 
     <div v-else class="product-not-found">
-      <img src="./assets/page-not-found.png" alt="pagenotfound" width="500px" height="500px">
+      <img src="/assets/page-not-found.png" alt="pagenotfound" width="500px" height="500px">
     </div>
   </div>
 </template>
