@@ -23,7 +23,7 @@
           <li>Before you make payment to the courier, confirm your order number, sender information, and tracking number
             on the parcel.</li>
         </ul>
-        <button>Confirm Order</button>
+        <button @click="showSuccess()">Confirm Order</button>
       </div>
     </div>
     <div class="content2">
@@ -49,7 +49,13 @@
 
 <script setup>
 import { useCartStore } from './store/cartStore';
+import { useToast } from 'vue-toastification';
 const cartStore = useCartStore();
+const toast = useToast()
+
+const showSuccess =()=>{
+  toast.success("arigato sir please keep on comming😘")
+}
 </script>
 
 <style scoped>
@@ -124,5 +130,6 @@ const cartStore = useCartStore();
   justify-content: space-between;
   margin-bottom: 10px;
 }
+
 
 </style>

@@ -1,66 +1,65 @@
 <template>
-  <div :class="{'page-scroll' : showCart}">
-  <div class="category">
-    <div :class="{ 'page-overlay': showCart }"></div>
-    <nav @mouseleave="dropdownMenu = null">
-      <div v-for="category in categories" :key="category.id" @mouseenter="dropdownMenu = category.id">
-        {{ category.name }}
-        <div class="relative">
-          <div v-if="dropdownMenu === category.id" class="dropdown" @mouseleave="dropdownMenu = null">
-            <div v-for="item in category.subcategories" :key="item.id" class="list" @click="navigateToCategory(item)">
-              {{ item.label }}
+  <div :class="{ 'page-scroll': showCart }">
+    <div class="category">
+      <div :class="{ 'page-overlay': showCart }"></div>
+      <nav @mouseleave="dropdownMenu = null">
+        <div v-for="category in categories" :key="category.id" @mouseenter="dropdownMenu = category.id">
+          {{ category.name }}
+          <div class="relative">
+            <div v-if="dropdownMenu === category.id" class="dropdown" @mouseleave="dropdownMenu = null">
+              <div v-for="item in category.subcategories" :key="item.id" class="list" @click="navigateToCategory(item)">
+                {{ item.label }}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="cart-div" @click="showCart = true">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M5 14h13.14c1.01 0 1.52 0 1.92-.19.36-.17.66-.44.87-.78.23-.38.29-.88.41-1.89l.59-5.26c.03-.3.05-.45-.04-.61-.08-.1-.15-.18-.26-.23C21.57 5 21.42 5 21.1 5H4.5M2 2h1.25c.26 0 .4 0 .5.05.1.05.17.12.22.2.06.1.07.23.08.5l.91 14.5c.02.26.03.39.09.49.05.09.12.16.21.2.1.05.24.05.49.05H19M7.5 21.5h.01M16.5 21.5h.01M8 21.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm9 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"
-            stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        <div>{{ cartStore.totalItem }}</div>
-      </div>
-    </nav>
-    <div class="cart-layout">
-      <div v-if="showCart">
-        <div class="cart-content">
-          <div class="cart-upper">
-            <p>Shopping Cart Preview</p>
-            <div class="close-btn" @click="showCart = false"></div>
-          </div>
-          <div class="item-containter">
-            <div v-for="item in cartStore.item_details" :key="item.id" class="cart-item">
-              <div class="img-checkbox">
-                <input type="checkbox" v-model="item.checked" @click="cartStore.updateChecked(item.id)" />
-                <img :src="item.image" alt="Product Image" class="cart-img" />
-              </div>
-              <div class="detailed-info">
-                <div class="cart-title">{{ item.title }}</div>
-                <p class="price">Price: ${{ item.price }}</p>
-                <div class="quantity-delete">
-                  <div class="quantity">
-                    <button @click="updatePositive(item, item.quantity, 'sub')" :disabled="item.quantity === 1"
-                      class="decrease-btn">-</button>
-                    <p>{{ item.quantity }}</p>
-                    <button @click="updatePositive(item, item.quantity, 'add')">+</button>
+        <div class="cart-div" @click="showCart = true">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+            <path
+              d="M5 14h13.14c1.01 0 1.52 0 1.92-.19.36-.17.66-.44.87-.78.23-.38.29-.88.41-1.89l.59-5.26c.03-.3.05-.45-.04-.61-.08-.1-.15-.18-.26-.23C21.57 5 21.42 5 21.1 5H4.5M2 2h1.25c.26 0 .4 0 .5.05.1.05.17.12.22.2.06.1.07.23.08.5l.91 14.5c.02.26.03.39.09.49.05.09.12.16.21.2.1.05.24.05.49.05H19M7.5 21.5h.01M16.5 21.5h.01M8 21.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm9 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"
+              stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <div>{{ cartStore.totalItem }}</div>
+        </div>
+      </nav>
+      <div class="cart-layout">
+        <div v-if="showCart">
+          <div class="cart-content">
+            <div class="cart-upper">
+              <p>Shopping Cart Preview</p>
+              <div class="close-btn" @click="showCart = false"></div>
+            </div>
+            <div class="item-containter">
+              <div v-for="item in cartStore.item_details" :key="item.id" class="cart-item">
+                <div class="img-checkbox">
+                  <input type="checkbox" v-model="item.checked" @click="cartStore.updateChecked(item.id)" />
+                  <img :src="item.image" alt="Product Image" class="cart-img" />
+                </div>
+                <div class="detailed-info">
+                  <div class="cart-title">{{ item.title }}</div>
+                  <p class="price">Price: ${{ item.price }}</p>
+                  <div class="quantity-delete">
+                    <div class="quantity">
+                      <button @click="updatePositive(item, item.quantity, 'sub')" :disabled="item.quantity === 1"
+                        class="decrease-btn">-</button>
+                      <p>{{ item.quantity }}</p>
+                      <button @click="updatePositive(item, item.quantity, 'add')">+</button>
+                    </div>
+                    <img src="/assets/delete.svg" alt="deleteicon" @click="deleteItem(item)" />
                   </div>
-                  <img src="/assets/delete.svg" alt="deleteicon" @click="deleteItem(item)" />
                 </div>
               </div>
             </div>
-          </div>
-          <div class="cart-lower">
-            <button class="shopping-cart" @click="goToCart()">Shopping Cart</button>
-            <button class="checkout" @click="goToCheckout()">Checkout</button>
+            <div class="cart-lower">
+              <button class="shopping-cart" @click="goToCart()">Shopping Cart</button>
+              <button class="checkout" @click="goToCheckout()">Checkout</button>
+            </div>
           </div>
         </div>
       </div>
+      <router-view></router-view>
     </div>
-
-    <router-view></router-view>
   </div>
-</div>
 </template>
 
 <script setup>
@@ -161,9 +160,9 @@ const goToCart = () => {
   cartStore.costCalculation();
 };
 
-const goToCheckout =()=>{
+const goToCheckout = () => {
   router.push("/payment")
-  showCart.value=false
+  showCart.value = false
   cartStore.costCalculation();
 }
 
@@ -328,14 +327,15 @@ nav {
   cursor: pointer;
 }
 
-.quantity button:hover{
+.quantity button:hover {
   background-color: #e1e0e0;
 }
 
-.quantity-delete p{
+.quantity-delete p {
   width: 30px;
   text-align: center;
 }
+
 .cart-lower {
   border-top: solid 1px grey;
   padding: 0 20px;
@@ -387,7 +387,7 @@ nav {
   overflow: hidden;
 }
 
-.page-scroll{
+.page-scroll {
   height: 100dvh;
   width: 100%;
   overflow: hidden;
