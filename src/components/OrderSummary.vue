@@ -63,4 +63,5 @@ const paymentPage=(item)=>{
   cursor: pointer;
   background-color: #0822c8;
 }
+
 </style>

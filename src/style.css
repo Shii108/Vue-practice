@@ -159,3 +159,6 @@ svg {
   transform: rotate(-45deg);
 }
 
+.close-btn:hover{
+  cursor: pointer;
+}

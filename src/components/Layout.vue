@@ -1,5 +1,7 @@
 <template>
+  <div :class="{'page-scroll' : showCart}">
   <div class="category">
+    <div :class="{ 'page-overlay': showCart }"></div>
     <nav @mouseleave="dropdownMenu = null">
       <div v-for="category in categories" :key="category.id" @mouseenter="dropdownMenu = category.id">
         {{ category.name }}
@@ -20,35 +22,45 @@
         <div>{{ cartStore.totalItem }}</div>
       </div>
     </nav>
-    <div v-if="showCart">
-      <div class="cart-content">
-        <div class="cart-upper">
-          <p>Shopping Cart Preview</p>
-          <div class="close-btn" @click="showCart = false"></div>
-        </div>
-        <div v-for="item in cartStore.item_details" :key="item.id" class="cart-item">
-          <div class="img-checkbox">
-            <input type="checkbox" v-model="item.checked" @click="cartStore.updateChecked(item.id)" />
-            <img :src="item.image" alt="Product Image" class="cart-img" />
+    <div class="cart-layout">
+      <div v-if="showCart">
+        <div class="cart-content">
+          <div class="cart-upper">
+            <p>Shopping Cart Preview</p>
+            <div class="close-btn" @click="showCart = false"></div>
           </div>
-          <div class="detailed-info">
-            <div class="cart-title">{{ item.title }}</div>
-            <p class="price">Price: ${{ item.price }}</p>
-            <div class="quantity-delete">
-              <div class="quantity">
-                <button @click="updatePositive(item, item.quantity, 'sub')" :disabled="item.quantity === 1"
-                  class="decrease-btn">-</button>
-                <p>Quantity: {{ item.quantity }}</p>
-                <button @click="updatePositive(item, item.quantity, 'add')">+</button>
+          <div class="item-containter">
+            <div v-for="item in cartStore.item_details" :key="item.id" class="cart-item">
+              <div class="img-checkbox">
+                <input type="checkbox" v-model="item.checked" @click="cartStore.updateChecked(item.id)" />
+                <img :src="item.image" alt="Product Image" class="cart-img" />
               </div>
-              <img src="/assets/delete.svg" alt="deleteicon" @click="deleteItem(item)" />
+              <div class="detailed-info">
+                <div class="cart-title">{{ item.title }}</div>
+                <p class="price">Price: ${{ item.price }}</p>
+                <div class="quantity-delete">
+                  <div class="quantity">
+                    <button @click="updatePositive(item, item.quantity, 'sub')" :disabled="item.quantity === 1"
+                      class="decrease-btn">-</button>
+                    <p>{{ item.quantity }}</p>
+                    <button @click="updatePositive(item, item.quantity, 'add')">+</button>
+                  </div>
+                  <img src="/assets/delete.svg" alt="deleteicon" @click="deleteItem(item)" />
+                </div>
+              </div>
             </div>
+          </div>
+          <div class="cart-lower">
+            <button class="shopping-cart" @click="goToCart()">Shopping Cart</button>
+            <button class="checkout" @click="goToCheckout()">Checkout</button>
           </div>
         </div>
       </div>
     </div>
+
+    <router-view></router-view>
   </div>
-  <router-view></router-view>
+</div>
 </template>
 
 <script setup>
@@ -146,7 +158,14 @@ const navigateToCategory = (category) => {
 const goToCart = () => {
   router.push("/cart");
   showCart.value = false;
+  cartStore.costCalculation();
 };
+
+const goToCheckout =()=>{
+  router.push("/payment")
+  showCart.value=false
+  cartStore.costCalculation();
+}
 
 const deleteItem = (item) => {
   cartStore.removeItem(item.id)
@@ -215,8 +234,8 @@ nav {
 }
 
 .cart-content {
-  background-color: pink;
-  min-height: 831px;
+  background-color: white;
+  height: 100dvh;
   width: 550px;
   position: absolute;
   top: 0px;
@@ -225,20 +244,24 @@ nav {
 }
 
 .cart-upper {
-  border: solid 1px black;
-  width: 36%;
-  position: fixed;
   color: #121926;
+  border-bottom: solid 1px gray;
   padding: 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 10dvh;
 }
 
 .cart-upper p {
-  font-size: 2.4rem;
+  font-size: 2rem;
   font-weight: 600;
   word-spacing: -0.4px;
+}
+
+.item-containter {
+  height: 80dvh;
+  overflow: auto;
 }
 
 .cart-item {
@@ -272,18 +295,21 @@ nav {
 
 .price {
   font-size: 1.6rem;
-  font-weight: bold;
+  color: #364152;
+  font-weight: 600;
   margin-bottom: 10px;
 }
 
 .quantity-delete {
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .quantity-delete img {
+  background-color: #f0f0f0;
+  padding: 4px;
   height: 30px;
+  width: 30px;
   cursor: pointer;
 }
 
@@ -302,7 +328,68 @@ nav {
   cursor: pointer;
 }
 
-.quantity p {
-  margin: 0;
+.quantity button:hover{
+  background-color: #e1e0e0;
+}
+
+.quantity-delete p{
+  width: 30px;
+  text-align: center;
+}
+.cart-lower {
+  border-top: solid 1px grey;
+  padding: 0 20px;
+  position: relative;
+  bottom: 0;
+  height: 10dvh;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.checkout {
+  background-color: #29303B;
+  color: #FFFFDF;
+  flex-grow: 4;
+  border-radius: 4px;
+  height: 60px;
+  font-size: 1.4rem;
+  font-weight: 500px;
+  word-spacing: -0.1px;
+}
+
+.checkout:hover {
+  background-color: #323a47;
+}
+
+.shopping-cart {
+  height: 60px;
+  flex-grow: 1;
+  background-color: white;
+  border: solid 1px black;
+  border-radius: 4px;
+  font-size: 1.4rem;
+  font-weight: 500px;
+  word-spacing: -0.1px;
+}
+
+.shopping-cart:hover {
+  background-color: rgb(240, 237, 237);
+}
+
+.page-overlay {
+  background: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.page-scroll{
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
 }
 </style>
