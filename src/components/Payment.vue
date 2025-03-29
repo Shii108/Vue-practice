@@ -23,7 +23,7 @@
           <li>Before you make payment to the courier, confirm your order number, sender information, and tracking number
             on the parcel.</li>
         </ul>
-        <button @click="showSuccess()">Confirm Order</button>
+        <button @click="showMessage()">Confirm Order</button>
       </div>
     </div>
     <div class="content2">
@@ -53,9 +53,20 @@ import { useToast } from 'vue-toastification';
 const cartStore = useCartStore();
 const toast = useToast()
 
-const showSuccess =()=>{
-  toast.success("arigato sir please keep on comming😘")
+const showMessage = () => {
+  toast.dismiss();
+  if (cartStore.totalCost > 0) {
+    toast.success("arigato my lovely clients , please keep on comming😘", {
+      toastClassName: "my-custom-toast", timeout: 1500, hideProgressBar: true,
+    });
+  }
+  else {
+    toast.error("lovely client , you forgot to select items", {
+      toastClassName: "my-custom-error", timeout: 1500, hideProgressBar: true,
+    })
+  }
 }
+
 </script>
 
 <style scoped>
@@ -130,6 +141,4 @@ const showSuccess =()=>{
   justify-content: space-between;
   margin-bottom: 10px;
 }
-
-
 </style>

@@ -66,7 +66,7 @@
 import { ref, onMounted, provide } from "vue";
 import { useRouter } from "vue-router";
 import { useCartStore } from "./store/cartStore";
-
+ 
 // Router & Store
 const router = useRouter();
 const cartStore = useCartStore();
@@ -181,6 +181,12 @@ onMounted(fetchProducts);
 </script>
 
 <style scoped>
+  .page-scroll {
+    height: 100dvh;
+    width: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
 .category {
   margin-top: 10px;
   padding: 0 20px;
@@ -203,6 +209,7 @@ nav {
 .relative {
   position: relative;
 }
+
 
 .dropdown {
   position: absolute;
@@ -240,6 +247,7 @@ nav {
   top: 0px;
   right: 0px;
   z-index: 100;
+  pointer-events: auto;
 }
 
 .cart-upper {
@@ -384,12 +392,6 @@ nav {
   position: absolute;
   top: 0;
   left: 0;
-  overflow: hidden;
 }
 
-.page-scroll {
-  height: 100dvh;
-  width: 100%;
-  overflow: hidden;
-}
 </style>

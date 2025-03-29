@@ -56,6 +56,7 @@ export const useCartStore = defineStore("cart", () => {
     // Format values
     subTotal.value = Number(subTotal.value.toFixed(2));
     totalCost.value = (subTotal.value + shippingCost.value).toFixed(2);
+    
   };
 
   // Function: Calculate total quantity of all items (checked or not)
