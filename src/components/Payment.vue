@@ -54,19 +54,10 @@ const cartStore = useCartStore();
 const toast = useToast()
 
 const showMessage = () => {
-  toast.dismiss();
-  if (cartStore.totalCost > 0) {
     toast.success("arigato my lovely clients , please keep on comming😘", {
       toastClassName: "my-custom-toast", timeout: 1500, hideProgressBar: true,
     });
   }
-  else {
-    toast.error("lovely client , you forgot to select items", {
-      toastClassName: "my-custom-error", timeout: 1500, hideProgressBar: true,
-    })
-  }
-}
-
 </script>
 
 <style scoped>

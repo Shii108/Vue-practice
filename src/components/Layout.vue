@@ -1,7 +1,7 @@
 <template>
   <div :class="{ 'page-scroll': showCart }">
     <div class="category">
-      <div :class="{ 'page-overlay': showCart }"></div>
+      <div :class="{ 'page-overlay': showCart }" @click="handleClickOverlay"></div>
       <nav @mouseleave="dropdownMenu = null">
         <div v-for="category in categories" :key="category.id" @mouseenter="dropdownMenu = category.id">
           {{ category.name }}
@@ -29,6 +29,7 @@
             <div class="close-btn" @click="showCart = false"></div>
           </div>
           <div class="item-containter">
+            <div v-if="cartStore.totalItem == 0" class="empty-cart">Your shopping cart is empty.</div>
             <div v-for="item in cartStore.item_details" :key="item.id" class="cart-item">
               <div class="img-checkbox">
                 <input type="checkbox" v-model="item.checked" @click="cartStore.updateChecked(item.id)" />
@@ -50,8 +51,9 @@
             </div>
           </div>
           <div class="cart-lower">
-            <button class="shopping-cart" @click="goToCart()">Shopping Cart</button>
-            <button class="checkout" @click="goToCheckout()">Checkout</button>
+            <button class="shopping-cart" @click="goToCart()" :disabled="cartStore.totalItem == 0">Shopping
+              Cart</button>
+            <button class="checkout" @click="goToCheckout()" :disabled="cartStore.totalItem == 0">Checkout</button>
           </div>
         </div>
       </div>
@@ -64,10 +66,12 @@
 import { ref, onMounted, provide } from "vue";
 import { useRouter } from "vue-router";
 import { useCartStore } from "./store/cartStore";
+import { useToast } from 'vue-toastification';
 
 // Router & Store
 const router = useRouter();
 const cartStore = useCartStore();
+const toast = useToast()
 
 // Reactive Variables
 const dropdownMenu = ref(null);
@@ -159,9 +163,16 @@ const goToCart = () => {
 };
 
 const goToCheckout = () => {
-  router.push("/payment")
-  showCart.value = false
-  cartStore.costCalculation();
+  if (cartStore.total_buying_item > 0) {
+    router.push("/payment")
+    showCart.value = false
+    cartStore.costCalculation();
+  }
+  else {
+    toast.error("you forgot to select an item my lovely client😘",{
+      id: "single-toast",  timeout: 1500, hideProgressBar: true,
+    })
+  }
 }
 
 const deleteItem = (item) => {
@@ -174,6 +185,10 @@ const updatePositive = (item, quantity, action) => {
   cartStore.totalQuantity();
 }
 
+const handleClickOverlay = () => {
+  showCart.value=false
+}
+
 // Lifecycle Hook
 onMounted(fetchProducts);
 </script>
@@ -183,7 +198,6 @@ onMounted(fetchProducts);
   height: 100dvh;
   width: 100%;
   overflow: hidden;
-  pointer-events: none;
 }
 
 .page-overlay {
@@ -193,59 +207,61 @@ onMounted(fetchProducts);
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 99;
 }
+
 
 .category {
   margin-top: 10px;
   padding: 0 20px;
-}
 
-nav {
-  cursor: pointer;
-  background-color: #232F3E;
-  color: white;
-  font-size: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 20px;
-  padding: 20px;
-  position: relative;
-  height: 60px;
-}
+  nav {
+    cursor: pointer;
+    background-color: #232F3E;
+    color: white;
+    font-size: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    position: relative;
+    height: 60px;
 
-.relative {
-  position: relative;
-}
+    .cart-icon-div {
+      margin-left: auto;
+      display: flex;
+      gap: 3px;
+      align-items: center;
+      cursor: pointer;
+    }
 
+    .relative {
+      position: relative;
 
-.dropdown {
-  position: absolute;
-  margin-top: 20px;
-  background: white;
-  padding: 10px;
-  min-width: 150px;
-  white-space: nowrap;
-  color: black;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
+      .dropdown {
+        position: absolute;
+        margin-top: 20px;
+        background: white;
+        padding: 10px;
+        min-width: 150px;
+        white-space: nowrap;
+        color: black;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 
-.list {
-  padding: 8px;
-  cursor: pointer;
+        .list {
+          padding: 8px;
+          cursor: pointer;
 
-  &:hover {
-    background-color: #f0f0f0;
+          &:hover {
+            background-color: #f0f0f0;
+          }
+        }
+      }
+    }
   }
 }
 
-.cart-icon-div {
-  margin-left: auto;
-  display: flex;
-  gap: 3px;
-  align-items: center;
-  cursor: pointer;
-}
 
 .cart-content {
   background-color: white;
@@ -276,6 +292,12 @@ nav {
   .item-containter {
     height: 80dvh;
     overflow: auto;
+
+    .empty-cart {
+      font-size: 1.7rem;
+      font-weight: 500;
+      padding: 20px 20px;
+    }
 
     .cart-item {
       display: flex;
@@ -352,45 +374,53 @@ nav {
   }
 
   .cart-lower {
-  border-top: solid 1px grey;
-  padding: 0 20px;
-  position: relative;
-  bottom: 0;
-  height: 10dvh;
-  display: flex;
-  align-items: center;
-  gap: 15px;
+    border-top: solid 1px grey;
+    padding: 0 20px;
+    position: relative;
+    bottom: 0;
+    height: 10dvh;
+    display: flex;
+    align-items: center;
+    gap: 15px;
 
-  .checkout {
-    background-color: #29303B;
-    color: #FFFFDF;
-    flex-grow: 4;
-    border-radius: 4px;
-    height: 60px;
-    font-size: 1.4rem;
-    font-weight: 500px;
-    word-spacing: -0.1px;
+    .checkout {
+      background-color: #29303B;
+      color: #FFFFDF;
+      flex-grow: 4;
+      border-radius: 4px;
+      height: 60px;
+      font-size: 1.4rem;
+      font-weight: 500px;
+      word-spacing: -0.1px;
 
-    &:hover {
-      background-color: #323a47;
+      &:hover {
+        background-color: #323a47;
+      }
+
+      &:disabled{
+        cursor: not-allowed;
+      }
     }
-  }
 
-  .shopping-cart {
-    height: 60px;
-    flex-grow: 1;
-    background-color: white;
-    border: solid 1px black;
-    border-radius: 4px;
-    font-size: 1.4rem;
-    font-weight: 500px;
-    word-spacing: -0.1px;
+    .shopping-cart {
+      height: 60px;
+      flex-grow: 1;
+      background-color: white;
+      border: solid 1px black;
+      border-radius: 4px;
+      font-size: 1.4rem;
+      font-weight: 500px;
+      word-spacing: -0.1px;
 
-    &:hover {
-      background-color: rgb(240, 237, 237);
+      &:hover {
+        background-color: rgb(240, 237, 237);
+      }
+
+      &:disabled{
+        cursor: not-allowed;
+        border: solid 1px gray;
+      }
     }
   }
 }
-}
-
 </style>
