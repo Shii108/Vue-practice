@@ -212,8 +212,8 @@ onMounted(fetchProducts);
 
 
 .category {
-  margin-top: 10px;
-  padding: 0 20px;
+  // margin-top: 10px;
+  // padding: 0 20px;
 
   nav {
     cursor: pointer;
@@ -223,7 +223,7 @@ onMounted(fetchProducts);
     display: flex;
     align-items: center;
     gap: 20px;
-    margin-bottom: 20px;
+    // margin-bottom: 20px; 
     padding: 20px;
     position: relative;
     height: 60px;
