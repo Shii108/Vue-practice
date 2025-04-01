@@ -191,3 +191,12 @@ svg {
   color: black;
   opacity: 1;
 }
+
+.my-custom-logo{
+  height: 70px;
+  width: 90px;
+  background: none;
+  background-color: white;
+  background-color: red;
+  color: white;
+}

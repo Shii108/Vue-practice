@@ -1,8 +1,9 @@
 <template>
   <div :class="{ 'page-scroll': showCart }">
     <div class="category">
-      <div :class="{ 'page-overlay': showCart }" @click="handleClickOverlay"></div>
+      <div :class="{ 'page-overlay': showCart }" @click="handleClickOverlay()"></div>
       <nav @mouseleave="dropdownMenu = null">
+        <div><img src="/assets/image2noback.png" alt="image-logo" class="my-custom-logo"></div>
         <div v-for="category in categories" :key="category.id" @mouseenter="dropdownMenu = category.id">
           {{ category.name }}
           <div class="relative">
@@ -248,6 +249,7 @@ onMounted(fetchProducts);
         white-space: nowrap;
         color: black;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        z-index: 1;
 
         .list {
           padding: 8px;
