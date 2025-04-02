@@ -2,14 +2,18 @@
   <div :class="{ 'page-scroll': showCart }">
     <div class="category">
       <div :class="{ 'page-overlay': showCart }" @click="handleClickOverlay()"></div>
-      <nav @mouseleave="dropdownMenu = null">
-        <div><img src="/assets/image2noback.png" alt="image-logo" class="my-custom-logo"></div>
-        <div v-for="category in categories" :key="category.id" @mouseenter="dropdownMenu = category.id">
-          {{ category.name }}
-          <div class="relative">
-            <div v-if="dropdownMenu === category.id" class="dropdown" @mouseleave="dropdownMenu = null">
-              <div v-for="item in category.subcategories" :key="item.id" class="list" @click="navigateToCategory(item)">
-                {{ item.label }}
+      <nav>
+        <div class="my-custom-logo" @click="router.push('/')"><img src="/assets/final5.png" alt="image-logo"></div>
+        <div class="navigation">
+          <div class="hover-state" v-for="category in categories" :key="category.id"
+            @click="goToContact(category.name)">
+            {{ category.name }}
+            <div class="relative">
+              <div class="dropdown">
+                <div v-for="item in category.subcategories" :key="item.id" class="list"
+                  @click="navigateToCategory(item)">
+                  {{ item?.label }}
+                </div>
               </div>
             </div>
           </div>
@@ -20,7 +24,7 @@
               d="M5 14h13.14c1.01 0 1.52 0 1.92-.19.36-.17.66-.44.87-.78.23-.38.29-.88.41-1.89l.59-5.26c.03-.3.05-.45-.04-.61-.08-.1-.15-.18-.26-.23C21.57 5 21.42 5 21.1 5H4.5M2 2h1.25c.26 0 .4 0 .5.05.1.05.17.12.22.2.06.1.07.23.08.5l.91 14.5c.02.26.03.39.09.49.05.09.12.16.21.2.1.05.24.05.49.05H19M7.5 21.5h.01M16.5 21.5h.01M8 21.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Zm9 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0Z"
               stroke="#FFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
-          <div>{{ cartStore.totalItem }}</div>
+          <div class="total-item-icon">{{ cartStore.totalItem }}</div>
         </div>
       </nav>
       <div v-if="showCart">
@@ -138,6 +142,10 @@ const categories = ref([
       { label: "Accessories", value: "sports-accessories" },
       { label: "Sunglasses", value: "sunglasses" }
     ]
+  },
+  {
+    id: 6,
+    name: "Contact Us"
   }
 ]);
 
@@ -157,6 +165,13 @@ const navigateToCategory = (category) => {
   router.push(`/${category.value}`);
 };
 
+const goToContact = (category) => {
+  if (category == "Contact Us") {
+    router.push("/contact")
+  }
+}
+
+
 const goToCart = () => {
   router.push("/cart");
   showCart.value = false;
@@ -170,8 +185,8 @@ const goToCheckout = () => {
     cartStore.costCalculation();
   }
   else {
-    toast.error("you forgot to select an item my lovely client😘",{
-      id: "single-toast",  timeout: 1500, hideProgressBar: true,
+    toast.error("you forgot to select an item my lovely client😘", {
+      id: "single-toast", timeout: 1500, hideProgressBar: true,
     })
   }
 }
@@ -187,7 +202,7 @@ const updatePositive = (item, quantity, action) => {
 }
 
 const handleClickOverlay = () => {
-  showCart.value=false
+  showCart.value = false
 }
 
 // Lifecycle Hook
@@ -211,10 +226,7 @@ onMounted(fetchProducts);
   z-index: 99;
 }
 
-
 .category {
-  // margin-top: 10px;
-  // padding: 0 20px;
 
   nav {
     cursor: pointer;
@@ -223,33 +235,79 @@ onMounted(fetchProducts);
     font-size: 2rem;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 20px;
-    // margin-bottom: 20px; 
     padding: 20px;
     position: relative;
     height: 60px;
 
     .cart-icon-div {
       margin-left: auto;
-      display: flex;
-      gap: 3px;
-      align-items: center;
       cursor: pointer;
+      position: relative;
+
+      .total-item-icon {
+        font-size: 1rem;
+        position: absolute;
+        background: red;
+        width: 20px;
+        height: 20px;
+        border: solid red 1px;
+        border-radius: 50%;
+        top: -6px;
+        left: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
+
+    .navigation {
+      height: 60px;
+      // background: red;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-grow: 1;
+      gap: 40px;
+    }
+
+    .hover-state {
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        height: 20px;
+        width: 100%;
+      }
+
+      &:hover {
+        .dropdown {
+          background: rgb(225, 218, 218);
+          border-radius: 4px;
+          opacity: 100;
+          height: auto;
+          pointer-events: all;
+        }
+      }
+    }
+
 
     .relative {
       position: relative;
+      // margin-bottom: 10px;
 
       .dropdown {
-        position: absolute;
-        margin-top: 20px;
-        background: white;
-        padding: 10px;
         min-width: 150px;
-        white-space: nowrap;
-        color: black;
+        margin-top: 20px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        position: absolute;
         z-index: 1;
+        color: black;
+        opacity: 0;
+        height: 0;
+        pointer-events: none;
 
         .list {
           padding: 8px;
@@ -261,6 +319,7 @@ onMounted(fetchProducts);
         }
       }
     }
+
   }
 }
 
@@ -399,7 +458,7 @@ onMounted(fetchProducts);
         background-color: #323a47;
       }
 
-      &:disabled{
+      &:disabled {
         cursor: not-allowed;
       }
     }
@@ -418,7 +477,7 @@ onMounted(fetchProducts);
         background-color: rgb(240, 237, 237);
       }
 
-      &:disabled{
+      &:disabled {
         cursor: not-allowed;
         border: solid 1px gray;
       }

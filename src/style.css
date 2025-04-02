@@ -193,10 +193,8 @@ svg {
 }
 
 .my-custom-logo{
-  height: 70px;
-  width: 90px;
+  height: 40px;
+  width: 95px;
   background: none;
-  background-color: white;
-  background-color: red;
   color: white;
 }

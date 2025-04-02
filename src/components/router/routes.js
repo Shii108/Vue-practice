@@ -4,6 +4,7 @@ import Products from "../Products.vue";
 import Cart from "../cart.vue";
 import Payment from "../Payment.vue";
 import Home from "../Home.vue";
+import Contact from "../Contact.vue";
 
 const routes = [
   {
@@ -15,6 +16,7 @@ const routes = [
       { path: "/:category/:id", component: ProductDetail },
       { path: "/cart", component: Cart },
       { path: "/payment", component: Payment },
+      {path: "/contact" , component:Contact}
     ],
   },
 ];
