@@ -8,6 +8,7 @@
   vertical-align: baseline;
   font-size: inherit;
   font: inherit;
+  font-family: "DM Sans", sans-serif;
 }
 
 html {
@@ -18,7 +19,6 @@ html {
 }
 
 body {
-  font-family: "DM Sans", sans-serif;
   font-optical-sizing: auto;
   line-height: 1;
   -webkit-font-smoothing: antialiased;
@@ -195,6 +195,5 @@ svg {
 .my-custom-logo{
   height: 40px;
   width: 95px;
-  background: none;
-  color: white;
+  filter: brightness(1.5);
 }

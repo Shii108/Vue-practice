@@ -79,7 +79,6 @@ const cartStore = useCartStore();
 const toast = useToast()
 
 // Reactive Variables
-const dropdownMenu = ref(null);
 const products = ref([]);
 const showCart = ref(false);
 provide("products", products);
@@ -289,6 +288,30 @@ onMounted(fetchProducts);
           opacity: 100;
           height: auto;
           pointer-events: all;
+          z-index: 100;
+        }
+      }
+
+      &:last-child {
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          width: 100%;
+          height: 3px;
+          bottom: -8px;
+          background-color: red;
+          border-radius: 1px;
+          transform: scale(0, 0);
+          transition: 0.3s ease-out;
+          transform-origin: 0% 100% 0%;
+        }
+
+        &:hover {
+          &::after {
+            transform: scale(1, 1);
+          }
         }
       }
     }

@@ -11,17 +11,23 @@
       <div class="section1 container">
         <div><img src="/assets/callingimg.svg" alt="calling-icon"></div>
         <h2>Talk to Sales</h2>
-        <p>Interested in HubSpot's software?</p>
-        <p>Just pick up the phone to chat with a memeber of our sales team</p>
-        <p>+977 9808942189</p>
+        <div class="p-container">
+          <p>Interested in HubSpot's software?</p>
+          <p>Just pick up the phone to chat with a memeber of our sales team</p>
+          <p><a href="tel:+9779808942189">+977 9826724860</a></p>
+        </div>
       </div>
       <div class="section2 container">
         <div><img src="/assets/talkmeimg.svg" alt="talk-to-me-icon"></div>
         <h2>Contact Customer Support</h2>
-        <p>Sometimes you need a little help from your friends .Or a HubSpot support rep . Don't worry... we're here for
-          you</p>
+        <div class="p-container">
+          <p>Sometimes you need a little help from your friends.</p>
+          <p>Or a HubSpot support rep.</p>
+          <p>Don't worry... we're here for you.</p>
+        </div>
         <button>Contact Support</button>
       </div>
+
     </div>
   </div>
 </template>
@@ -39,7 +45,7 @@
     height: 48dvh;
     background-size: contain;
     background-position: right;
-    background: pink;
+    background: oklch(92.8% 0.006 264.531);
     background-repeat: no-repeat;
     // z-index: 100;
 
@@ -84,17 +90,45 @@
     top: -75px;
 
     .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
       position: relative;
       z-index: 2;
       background-color: white;
       width: 530px;
       height: 370px;
-      border: solid 1px black;
       border-radius: 7px;
+      box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
 
-      img{
-        height: 35px;
-        width: 35px;
+      img {
+        margin: 30px 0px;
+        height: 50px;
+        width: 50px;
+      }
+
+      p {
+        text-align: center;
+        font-size: 1.5rem;
+        // margin: 10px 0;
+      }
+
+      h2 {
+        font-size: 2rem;
+        font-weight: bold;
+      }
+
+      .p-container{
+        margin: 15px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        a{
+          text-decoration: underline;
+          
+        }
       }
     }
 
