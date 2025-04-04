@@ -1,0 +1,19 @@
+$primary-color: fff;
+$secondary-color: #2ecc71;
+$primary-border: 1px solid #2980b9;
+
+
+
+@mixin heading($size, $color:$primary-color) {
+  font-size: $size+rem;
+  font-weight: bold;
+  color: $color;
+}
+
+// @mixin animate-list($len) {
+//   @for $i from 1 through $len {
+//     &:nth-child(#{$i}) {
+//       animation-delay: 0.1s * $i;
+//     }
+// }
+// }

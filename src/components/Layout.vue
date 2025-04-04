@@ -155,6 +155,7 @@ const fetchProducts = async () => {
     if (!response.ok) throw new Error("Failed to fetch");
     const result = await response.json();
     products.value = result.products;
+    console.log(products.value[1] );
   } catch (error) {
     console.error(error);
   }
@@ -279,11 +280,13 @@ onMounted(fetchProducts);
         position: absolute;
         height: 20px;
         width: 100%;
+        // background: red;
       }
 
       &:hover {
         .dropdown {
-          background: rgb(225, 218, 218);
+          // background: rgb(225, 218, 218);
+          background: white;
           border-radius: 4px;
           opacity: 100;
           height: auto;

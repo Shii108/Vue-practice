@@ -21,9 +21,9 @@
         <div><img src="/assets/talkmeimg.svg" alt="talk-to-me-icon"></div>
         <h2>Contact Customer Support</h2>
         <div class="p-container">
-          <p>Sometimes you need a little help from your friends.</p>
-          <p>Or a HubSpot support rep.</p>
-          <p>Don't worry... we're here for you.</p>
+          <p>Sometimes things don’t go as planned. We get it.</p>
+          <p>When in doubt, reach out. We’re here to help.</p>
+          <p>No judgment. No eye rolls. Just solutions.</p>
         </div>
         <button>Contact Support</button>
       </div>
@@ -119,15 +119,15 @@
         font-weight: bold;
       }
 
-      .p-container{
+      .p-container {
         margin: 15px 0;
         display: flex;
         flex-direction: column;
         gap: 15px;
 
-        a{
+        a {
           text-decoration: underline;
-          
+
         }
       }
     }
