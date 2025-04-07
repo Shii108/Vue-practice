@@ -84,15 +84,10 @@ watch(products, (newProducts) => {
 .products {
   &--items {
      h3{
-      // text-align: justify;
-      // font-weight: 600;
-      // margin-bottom: 7px;
-      // font-size: 1.3rem;
-      // border:$primary-border;
-      @include heading(1.4);
-      @media (max-width: 768px) {
-        @include heading(1.2, $secondary-color);
-      }
+      text-align: justify;
+      font-weight: 600;
+      margin-bottom: 7px;
+      font-size: 1.3rem;
     }
 
     &__image {
