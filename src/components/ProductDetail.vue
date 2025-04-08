@@ -44,6 +44,9 @@ const route = useRoute();
 const quantity = ref(1);
 const products = inject("products");
 
+//what is this
+
+
 // Computed Property: Find the product by ID
 const product = computed(() => {
   const selectedId = Number(route.params.id);
