@@ -75,10 +75,17 @@ const addToCart = (title, thumbnail, price) => {
 
     .img-container {
       display: flex;
-      justify-content: center;
+      flex-direction: column;   
+      justify-content: space-around;
       flex-basis: 35%;
       margin-top: 20px;
       border: solid 1px black;
+
+      .color-options{
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+      }
 
       img {
         height: 250px;
@@ -184,7 +191,7 @@ const addToCart = (title, thumbnail, price) => {
 
   &:focus,
   &:active {
-    border: 2px solid #000;
+    border: 2px solid green;
     outline: none;
   }
 }
