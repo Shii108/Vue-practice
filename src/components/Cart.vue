@@ -24,7 +24,12 @@
     <div class="summary-container">
       <OrderSummary />
       <div class="content-below">
-        what is this
+        <h2>Apply a Promotion Code</h2>
+        <p>Remove any spaces or dashes before hitting apply</p>
+        <div class="but-input">
+          <input type="text" placeholder="Enter your code here" />
+          <button>Apply</button>
+        </div>
       </div>
     </div>
   </div>
@@ -112,10 +117,11 @@ const updateQuan = (item, quantity, action) => {
         }
 
         img {
-          width: 30px;
-          height: 30px;
+          width: 25px;
+          height: 25px;
           cursor: pointer;
           align-self: center;
+          filter: hue-rotate(110deg);
         }
       }
 
@@ -159,6 +165,64 @@ const updateQuan = (item, quantity, action) => {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .content-below {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      background-color: white;
+      border-radius: 4px;
+      width: 400px;
+      padding: 20px;
+      font-size: 1.6rem;
+      margin-top: 20px;
+
+      h2 {
+        font-size: 1.8rem;
+        font-weight: 500;
+        margin-bottom: 5px;
+      }
+
+      p {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 12px;
+      }
+
+      .but-input {
+        display: flex;
+        gap: 10px;
+
+        input {
+          border: solid 1px lightgray;
+          padding: 4px 6px;
+          border-radius: 4px;
+          font-size: 1.3rem;
+
+          &:hover {
+            border: solid 1px #757575;
+          }
+
+          &:focus {
+            border: solid 1px #232F3E;
+          }
+
+          &::placeholder {
+            font-size: 1.2rem;
+            color: gray;
+          }
+        }
+
+        button {
+          color: white;
+          border: none;
+          font-size: 1.3rem;
+          font-weight: bold;
+          background: #232F3E;
+          padding: 10px;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+      }
+    }
   }
 }
 </style>

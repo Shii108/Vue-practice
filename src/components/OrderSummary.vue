@@ -41,7 +41,7 @@ const paymentPage=(item)=>{
   width: 400px;
   padding: 20px;
   border-radius: 4px;
-  // margin-top: 100px;
+  // margin-top: 20px;
 }
 
 .summary-item {
@@ -61,14 +61,11 @@ const paymentPage=(item)=>{
   color: white;
   margin-top: 12px;
   border: none;
-  border-radius: 8px;
   width: 100%; 
   font-size: 1.6rem;
   font-weight: bold;
   background: red;
-  color: white;
   padding: 14px;
-  font-size: 1.8rem;
   border-radius: 4px;
   cursor: pointer;
 
