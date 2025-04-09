@@ -36,8 +36,8 @@
           <div class="item-containter">
             <div v-if="cartStore.totalItem == 0" class="empty-cart">Your shopping cart is empty.</div>
             <div v-for="item in cartStore.item_details" :key="item.id" class="cart-item">
-              <div class="img-checkbox">
-                <input type="checkbox" v-model="item.checked" @click="cartStore.updateChecked(item.id)" />
+              <div class="img-checkbox" @click="cartStore.updateChecked(item.id)">
+                <input type="checkbox" v-model="item.checked" />
                 <img :src="item.image" alt="Product Image" class="cart-img" />
               </div>
               <div class="detailed-info">
@@ -402,6 +402,7 @@ onMounted(fetchProducts);
           width: 100px;
           height: 100px;
           object-fit: cover;
+          cursor: pointer;
         }
       }
 

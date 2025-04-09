@@ -79,8 +79,6 @@ watch(products, (newProducts) => {
 </script>
 
 <style scoped lang="scss">
-
-@import "../main.scss";
 .products {
   &--items {
      h3{

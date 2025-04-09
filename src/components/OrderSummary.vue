@@ -33,35 +33,49 @@ const paymentPage=(item)=>{
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .order-summary {
-  position: fixed;
-  right: 320px;
-  font-size: 2rem;
-  border: solid 1px black;
-  width: 350px;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); 
+  background-color: white;
+  width: 400px;
   padding: 20px;
+  border-radius: 4px;
+  // margin-top: 100px;
 }
 
 .summary-item {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
+  align-items: center; 
+  margin-bottom: 12px; 
+  font-weight: 500;
+}
+
+.total {
+  border-top: 2px solid #ddd; 
+  padding-top: 12px;
 }
 
 .checkout {
   color: white;
-  margin-top: 8px;
-  border: solid 1px black;
-  background-color: #0660FE;
-  padding: 10px;
-  border-radius: 5px;
-  width: 300px;
+  margin-top: 12px;
+  border: none;
+  border-radius: 8px;
+  width: 100%; 
+  font-size: 1.6rem;
+  font-weight: bold;
+  background: red;
+  color: white;
+  padding: 14px;
+  font-size: 1.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover{
+    background: rgb(198, 0, 0);
+  }
 }
 
-.checkout:hover {
-  cursor: pointer;
-  background-color: #0822c8;
-}
 
 </style>

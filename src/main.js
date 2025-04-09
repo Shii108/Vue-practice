@@ -11,6 +11,7 @@ import router from "./components/router/index.js";
 
 // Styles
 import "./style.css";
+import "./main.scss"
 
 // Create Vue application
 const app = createApp(App);
