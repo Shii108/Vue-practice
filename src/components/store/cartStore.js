@@ -53,10 +53,8 @@ export const useCartStore = defineStore("cart", () => {
       .map((item) => (item.checked ? item.quantity : 0))
       .reduce((a, b) => a + b, 0);
 
-    // Format values
-    subTotal.value = Number(subTotal.value.toFixed(2));
-    totalCost.value = (subTotal.value + shippingCost.value).toFixed(2);
-    
+    subTotal.value = Number(subTotal.value.toFixed(2)); // Ensure it's still a number
+    totalCost.value = Number((subTotal.value + shippingCost.value).toFixed(2)); // Ensure it's still a number
   };
 
   // Function: Calculate total quantity of all items (checked or not)
@@ -88,6 +86,20 @@ export const useCartStore = defineStore("cart", () => {
     costCalculation();
   };
 
+  const promoDiscountCalculation = (discount) => {
+    const match = discount.match(/^([A-Za-z]+)([1-9][0-9]?)$/);
+    if (!match) {
+      console.log("invalid discount code");
+    } else {
+      discount = parseInt(match[2], 10);
+      totalCost.value = Number(
+        ((subTotal.value + shippingCost.value) * (1 - discount / 100)).toFixed(
+          2
+        )
+      );
+    }
+  };
+
   // Return store values
   return {
     shippingCost,
@@ -102,5 +114,6 @@ export const useCartStore = defineStore("cart", () => {
     totalQuantity,
     costCalculation,
     updateChecked,
+    promoDiscountCalculation,
   };
 });

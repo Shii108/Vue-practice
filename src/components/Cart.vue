@@ -27,8 +27,8 @@
         <h2>Apply a Promotion Code</h2>
         <p>Remove any spaces or dashes before hitting apply</p>
         <div class="but-input">
-          <input type="text" placeholder="Enter your code here" />
-          <button>Apply</button>
+          <input type="text" v-model="discountPercentage" placeholder="Enter your code here" />
+          <button @click="cartStore.promoDiscountCalculation(discountPercentage)">Apply</button>
         </div>
       </div>
     </div>
@@ -42,6 +42,7 @@ import { useCartStore } from './store/cartStore';
 
 const cartStore = useCartStore();
 const cartProducts = ref(cartStore.item_details)
+const discountPercentage= ref(``)
 
 const deleteItem = (item) => {
   cartStore.removeItem(item.id)
