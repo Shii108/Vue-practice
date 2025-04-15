@@ -70,6 +70,7 @@ select {
   font: inherit;
   outline: none;
   background: none;
+  accent-color: red;
   /* appearance: none; */
   /* -webkit-appearance: none;
   -moz-appearance: none; */

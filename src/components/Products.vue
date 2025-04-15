@@ -80,6 +80,7 @@ watch(products, (newProducts) => {
 
 <style scoped lang="scss">
 .products {
+  cursor: pointer;
   &--items {
      h3{
       text-align: justify;
@@ -128,11 +129,11 @@ watch(products, (newProducts) => {
   font-size: 1.3rem;
 }
 
-// .product-img {
-//   height: 260px;
-//   width: 260px;
-//   transition: all 0.3s ease-in-out;
-// }
+.product-img {
+  // height: 260px;
+  // width: 260px;
+  transition: all 0.3s ease-in-out;
+}
 
 .product-img:hover {
   transform: scale(1.1);
