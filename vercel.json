@@ -1,13 +1,18 @@
 {
-  "version":2.0,
-  "build":{
-    "src":"/index.html",
-    "use":"vite"
-  },
-  "routes":[
+  "version": 2,
+  "builds": [
     {
-      "src":"/(.*)",
-      "dest":"/index.html"
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }

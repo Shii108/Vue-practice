@@ -9,6 +9,7 @@ export const useCartStore = defineStore("cart", () => {
   const subTotal = ref(0); // Subtotal of selected items
   const totalCost = ref(0); // Final total including shipping
   const total_buying_item = ref(0); // Total count of checked (selected) items
+  const discountAmount=ref(0)
 
   // Function: Add item to cart
   const addToCart = (quantity, id, title, image, price) => {
@@ -92,11 +93,15 @@ export const useCartStore = defineStore("cart", () => {
       console.log("invalid discount code");
     } else {
       discount = parseInt(match[2], 10);
+      const oldTotal= totalCost.value;
       totalCost.value = Number(
         ((subTotal.value + shippingCost.value) * (1 - discount / 100)).toFixed(
           2
         )
-      );
+      );  
+      discountAmount.value = Number(
+        (oldTotal - totalCost.value).toFixed(2)
+      ); // Calculate discount amount
     }
   };
 
@@ -108,6 +113,7 @@ export const useCartStore = defineStore("cart", () => {
     totalItem,
     item_details,
     total_buying_item,
+    discountAmount,
     addToCart,
     updateQuantity,
     removeItem,

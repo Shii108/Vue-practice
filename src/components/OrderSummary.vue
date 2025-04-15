@@ -10,6 +10,10 @@
       <span>{{ cartStore.shippingCost }}</span>
     </div>
 
+    <div class="discount summary-item">
+      <p>Discount</p>
+      <span>{{ cartStore.discountAmount }}</span>
+    </div>
     <div class="summary-item total">
       <p><strong>Total:</strong></p>
       <span><strong>{{ cartStore.totalCost }}</strong></span>

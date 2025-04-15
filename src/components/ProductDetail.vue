@@ -79,9 +79,9 @@ const addToCart = (title, thumbnail, price) => {
       display: flex;
       flex-direction: column;   
       justify-content: space-around;
-      flex-basis: 35%;
+      flex-basis: 30%;
       margin-top: 20px;
-      border: solid 1px black;
+      // border: solid 1px black;
 
       .color-options{
         display: flex;
@@ -99,13 +99,13 @@ const addToCart = (title, thumbnail, price) => {
       flex-basis: 65%;
 
       h2 {
-        font-size: 5rem;
+        font-size:3rem;
         padding: 10px 0;
         // border: solid 1px black;
       }
 
       p {
-        font-size: 2rem;
+        font-size: 1.5rem;
         line-height: 1.3;
         color: rgb(79, 77, 77);
       }
