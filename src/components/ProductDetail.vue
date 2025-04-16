@@ -22,7 +22,7 @@
           <button @click="quantity++">+</button>
         </div>
         <p class="stock">{{ product.availabilityStatus }}</p>
-        <button class="add-to-cart" @click="addToCart(product.title, product.thumbnail, product.price)">
+        <button class="add-to-cart" @click="addToCart(product.title, product.thumbnail, product.price) ">
           Add to Cart
         </button>
         <p class="shipping">{{ product.shippingInformation }}</p>
@@ -32,6 +32,8 @@
 </template>
 
 <script setup>
+import { useToast } from "vue-toastification";
+const toast = useToast();
 import { computed, inject, ref } from "vue";
 import { useRoute } from "vue-router";
 import { useCartStore } from "./store/cartStore";
@@ -55,7 +57,15 @@ const product = computed(() => {
 const addToCart = (title, thumbnail, price) => {
   cartStore.addToCart(quantity.value, route.params.id, title, thumbnail, price);
   cartStore.totalQuantity();
+  showMessage();
 };
+
+const showMessage = () => {
+  toast.success(`${quantity.value} item added to cart`, {
+    toastClassName: "my-custom-toast", timeout: 1500, hideProgressBar: true,
+  });
+}
+
 </script>
 
 <style scoped lang="scss">
@@ -75,11 +85,6 @@ const addToCart = (title, thumbnail, price) => {
     gap: 10px;
     border: solid 1px lightgray;
     // box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
-
-    &:hover {
-      // box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
-      // transform: scale(1.02);
-    }
 
     .img-container {
       flex-basis: 30%;

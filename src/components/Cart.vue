@@ -28,7 +28,7 @@
         <p>Remove any spaces or dashes before hitting apply</p>
         <div class="but-input">
           <input type="text" v-model="discountPercentage" placeholder="Enter your code here" />
-          <button @click="cartStore.promoDiscountCalculation(discountPercentage)">Apply</button>
+          <button @click="cartStore.promoDiscountCalculation(discountPercentage)" :disabled="cartStore.promoButton">Apply</button>
         </div>
       </div>
     </div>
@@ -68,9 +68,7 @@ const updateQuan = (item, quantity, action) => {
     flex: 11;
     flex-direction: column;
     gap: 10px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-
+    overflow: scroll hidden;
     .items {
       box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px;
       display: flex;
@@ -221,6 +219,11 @@ const updateQuan = (item, quantity, action) => {
           padding: 10px;
           border-radius: 4px;
           cursor: pointer;
+
+          &:disabled{
+            cursor: not-allowed;
+            background: #324256;
+          }
         }
       }
     }
