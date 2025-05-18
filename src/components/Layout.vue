@@ -1,6 +1,6 @@
 <template>
   <div :class="{ 'page-scroll': showCart }">
-    <div class="category">
+    <div class="category ">
       <div :class="{ 'page-overlay': showCart }" @click="handleClickOverlay()"></div>
       <nav>
         <div class="my-custom-logo" @click="router.push('/')"><img src="/assets/final5.png" alt="image-logo"></div>
@@ -62,9 +62,9 @@
           </div>
         </div>
       </div>
-      <router-view></router-view>
     </div>
   </div>
+  <router-view></router-view>
 </template>
 
 <script setup>
@@ -232,7 +232,7 @@ onMounted(fetchProducts);
     cursor: pointer;
     background-color: #232F3E;
     color: white;
-    font-size: 2rem;
+    // font-size: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -266,10 +266,12 @@ onMounted(fetchProducts);
       height: 60px;
       // background: red;
       display: flex;
+      // display: none;
       justify-content: center;
       align-items: center;
       flex-grow: 1;
       gap: 40px;
+      
     }
 
     .hover-state {

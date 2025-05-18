@@ -1,33 +1,32 @@
 <template>
   <div class="whole-page">
-    <div class="upper">
-      <div class="contents">
-        <h1>Get in touch</h1>
-        <p>Want to get in touch? We'd love to hear from you</p>
-        <p>Here's how you can reach us</p>
+    <div class="upper p-5 h-[46dvh] bg-[oklch(92.8% 0.006 264.531)]">
+      <div class="w-[250px] m-auto">
+        <img src="/assets/goodshi.webp" alt="">
+      </div>
+      <div class="flex flex-col items-center gap-2  ">
+        <h1 class="text-4xl">Get in touch</h1>
+        <p class="text-xl">Want to get in touch? We'd love to hear from you</p>
+        <p class="text-xl">Here's how you can reach us</p>
       </div>
     </div>
-    <div class="lower">
-      <div class="section1 container">
-        <div><img src="/assets/callingimg.svg" alt="calling-icon"></div>
-        <h2>Talk to Sales</h2>
-        <div class="p-container">
-          <p>Interested in HubSpot's software?</p>
-          <p>Just pick up the phone to chat with a memeber of our sales team</p>
-          <p><a href="tel:+9779808942189">+977 9826724860</a></p>
-        </div>
+    <div class="flex gap-5 justify-center relative -top-10 h-[370px]">
+      <div class="flex flex-col justify-center items-center gap-5  w-[530px] bg-white shadow-md rounded-md p-4">
+        <img src="/assets/callingimg.svg" alt="calling-icon" class=" h-[50px] w-[50px]">
+        <h2 class="font-semibold text-2xl">Talk to Sales</h2>
+        <p class="text-base">Interested in HubSpot's software?</p>
+        <p class="text-base">Just pick up the phone to chat with a memeber of our sales team</p>
+        <p class="text-base">Our agents are there 24/7</p>
+        <p class="text-base underline"><a href="tel:+977 8484847474">+977 9874747474</a></p>
       </div>
-      <div class="section2 container">
-        <div><img src="/assets/talkmeimg.svg" alt="talk-to-me-icon"></div>
-        <h2>Contact Customer Support</h2>
-        <div class="p-container">
-          <p>Sometimes things don’t go as planned. We get it.</p>
-          <p>When in doubt, reach out. We’re here to help.</p>
-          <p>No judgment. No eye rolls. Just solutions.</p>
-        </div>
-        <button>Contact Support</button>
+      <div class="flex flex-col gap-5 justify-center items-center  w-[530px] bg-white shadow-md rounded-md p-4">
+        <img src="/assets/talkmeimg.svg" alt="talk-to-me-icon" class="h-[50px] w-[50px]">
+        <h2 class="text-2xl font-semibold">Contact Customer Support</h2>
+        <p class="text-base">Sometimes things don’t go as planned. We get it.</p>
+        <p class="text-base">When in doubt, reach out. We’re here to help.</p>
+        <button class="bg-red-500 text-white p-4 rounded-md cursor-pointer hover:bg-red-600 text-md">Contact
+          Support</button>
       </div>
-
     </div>
   </div>
 </template>
@@ -39,114 +38,7 @@
 <style lang="scss" scoped>
 .whole-page {
   .upper {
-    display: flex;
-    align-items: center;
-    position: relative;
-    height: 48dvh;
-    background-size: contain;
-    background-position: right;
     background: oklch(92.8% 0.006 264.531);
-    background-repeat: no-repeat;
-    // z-index: 100;
-
-    &::before {
-      content: "";
-      background-image: url("/public/assets/goodshi.webp");
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: right;
-      position: absolute;
-      top: 20px;
-      width: 100%;
-      height: 80%;
-      z-index: 1;
-    }
-
-    .contents {
-      padding: 0 20px;
-      position: relative;
-      top: -40px;
-
-      h1 {
-        font-size: 5rem;
-        margin-bottom: 15px;
-        font-weight: 500;
-      }
-
-      p {
-        font-size: 2rem;
-        line-height: 1.5;
-        font-weight: 300;
-      }
-    }
-  }
-
-  .lower {
-    // border: solid 1px green;
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-    position: relative;
-    top: -75px;
-
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      position: relative;
-      z-index: 2;
-      background-color: white;
-      width: 530px;
-      height: 370px;
-      border-radius: 7px;
-      box-shadow: rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
-
-      img {
-        margin: 30px 0px;
-        height: 50px;
-        width: 50px;
-      }
-
-      p {
-        text-align: center;
-        font-size: 1.5rem;
-        // margin: 10px 0;
-      }
-
-      h2 {
-        font-size: 2rem;
-        font-weight: bold;
-      }
-
-      .p-container {
-        margin: 15px 0;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-
-        a {
-          text-decoration: underline;
-
-        }
-      }
-    }
-
-    .section2 {
-      button {
-        background: red;
-        color: white;
-        padding: 14px;
-        font-size: 2rem;
-        border-radius: 4px;
-        cursor: pointer;
-
-        &:hover {
-          background: rgb(198, 0, 0)
-        }
-
-      }
-    }
   }
 }
 </style>
