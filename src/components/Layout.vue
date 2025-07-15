@@ -266,7 +266,7 @@ onMounted(fetchProducts);
       height: 60px;
       // background: red;
       display: flex;
-      // display: none;
+      display: none;
       justify-content: center;
       align-items: center;
       flex-grow: 1;
