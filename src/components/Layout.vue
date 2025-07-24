@@ -266,12 +266,17 @@ onMounted(fetchProducts);
       height: 60px;
       // background: red;
       display: flex;
-      display: none;
       justify-content: center;
       align-items: center;
       flex-grow: 1;
       gap: 40px;
       
+    }
+
+    @media (max-width:1024px){
+      .navigation{
+        display:none
+      }
     }
 
     .hover-state {
